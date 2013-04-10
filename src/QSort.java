@@ -22,4 +22,13 @@ public class QSort {
 	private static void insertionsort(int[] a, int low, int high) {
 		return;
 	} // dummy code
+
+    /**
+     * Swap two integers.
+     */
+    private static void swap(int a, int b) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
 }
