@@ -21,7 +21,7 @@ public class QSort {
 	} // dummy code
 
     private static int partition(int[] a, int low, int high, int pivotIndex) {
-        int pivotValue = medianOfThree(a[low], a[high], a.length / 2);
+        int pivotValue = medianOfThree(a[low], a[high], a[a.length / 2]);
     }
 
     /**
