@@ -20,7 +20,14 @@ public class QSort {
 	 * Sort from a[low] to a[high] using insertion sort.
 	 */
 	private static void insertionsort(int[] a, int low, int high) {
-		return;
+		for (int i = low + 1; i <= high; i++) {
+            int cur = a[i];
+            int j = i - 1;
+            while ((j >= 0) && (a[j] > cur)) {
+                a[j + 1] = a[j--];
+            }
+            a[j + 1] = cur;
+        }
 	} // dummy code
 
     /**
