@@ -13,8 +13,35 @@ public class QSort {
 	 * and a cutoff to insertion sort of m.
 	 */
 	private static void quicksort(int[] a, int low, int high, int m) {
-		return;
+		if (high <= low + m) {
+            insertionsort(a, low, high);
+            return;
+        }
+
 	} // dummy code
+
+    private static int partition(int[] a, int low, int high, int pivotIndex) {
+        int pivotValue = medianOfThree(a[low], a[high], a.length / 2);
+    }
+
+    /**
+     * Return the median of three integers.
+     */
+    private static int medianOfThree(int low, int high, int middle) {
+        if (low > middle) swap(low, middle);
+        if (low > high) swap(low, high);
+        if (middle > high) swap(middle, high);
+        return middle;
+    }
+
+    /**
+     * Swap two integers.
+     */
+    private static void swap(int a, int b) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
 
 	/**
 	 * Sort from a[low] to a[high] using insertion sort.
@@ -29,13 +56,4 @@ public class QSort {
             a[j + 1] = cur;
         }
 	} // dummy code
-
-    /**
-     * Swap two integers.
-     */
-    private static void swap(int a, int b) {
-        int tmp = a;
-        a = b;
-        b = tmp;
-    }
 }
