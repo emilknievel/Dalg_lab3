@@ -18,10 +18,29 @@ public class QSort {
             return;
         }
 
+        int index = partition(a, low, high);
+        if (low < index - 1) quicksort(a, low, index - 1, m);
+        if (index < high) quicksort(a, index, high, m);
 	} // dummy code
 
-    private static int partition(int[] a, int low, int high, int pivotIndex) {
-        int pivotValue = medianOfThree(a[low], a[high], a[a.length / 2]);
+    /**
+     * Partition the array.
+     */
+    private static int partition(int[] a, int low, int high) {
+        int pivotIndex = medianOfThree(a[low], a[high], a[a.length / 2]);
+        int pivotValue = a[pivotIndex];
+        swap(a[pivotIndex], a[high]);
+        int storeIndex = low;
+
+        for (int i = low; i < high; i++) {
+            if (a[i] <= pivotValue) {
+                swap(a[i], a[storeIndex]);
+                storeIndex += 1;
+            }
+        }
+
+        swap(a[storeIndex], a[high]);
+        return storeIndex;
     }
 
     /**
