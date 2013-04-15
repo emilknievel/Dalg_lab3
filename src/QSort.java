@@ -18,39 +18,48 @@ public class QSort {
             return;
         }
 
-        int index = partition(a, low, high);
-        if (low < index - 1) quicksort(a, low, index - 1, m);
-        if (index < high) quicksort(a, index, high, m);
-	} // dummy code
+        int median = medianOfThree(a, low, high);
+
+        int index = partition(a, low, high, median);
+        quicksort(a, low, index - 1, m);
+        quicksort(a, index + 1, high, m);
+
+	}
 
     /**
      * Partition the array.
      */
-    private static int partition(int[] a, int low, int high) {
-        int pivotIndex = medianOfThree(a[low], a[high], a[a.length / 2]);
-        int pivotValue = a[pivotIndex];
-        swap(a[pivotIndex], a[high]);
-        int storeIndex = low;
+    private static int partition(int[] a, int low, int high, int pivot) {
 
+        int pivotValue = a[pivot];
+        arraySwap(a, pivot, high); // move pivot to end
+        int storeIndex = low;
         for (int i = low; i < high; i++) {
             if (a[i] <= pivotValue) {
-                swap(a[i], a[storeIndex]);
+                arraySwap(a, i, storeIndex);
                 storeIndex += 1;
             }
         }
-
-        swap(a[storeIndex], a[high]);
+        arraySwap(a, storeIndex, high); // pivot to final place
         return storeIndex;
     }
 
     /**
      * Return the median of three integers.
      */
-    private static int medianOfThree(int low, int high, int middle) {
-        if (low > middle) swap(low, middle);
-        if (low > high) swap(low, high);
-        if (middle > high) swap(middle, high);
-        return middle;
+    private static int medianOfThree(int[] a, int low, int high) {
+        int center = low + (high - low) / 2;
+
+        if (a[low] > a[center])
+            swap(low, center);
+        // order low & high
+        if (a[low] > a[high])
+            swap(low, high);
+        // order center & high
+        if (a[center] > a[high])
+            swap(center, high);
+
+        return center;
     }
 
     /**
@@ -60,6 +69,15 @@ public class QSort {
         int tmp = a;
         a = b;
         b = tmp;
+    }
+
+    /**
+     * Swap two array objects.
+     */
+    private static void arraySwap(int[] a, int x, int y) {
+        int tmp = a[x];
+        a[x] = a[y];
+        a[y] = tmp;
     }
 
 	/**
@@ -74,5 +92,5 @@ public class QSort {
             }
             a[j + 1] = cur;
         }
-	} // dummy code
+	}
 }
