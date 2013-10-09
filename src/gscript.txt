@@ -4,4 +4,6 @@ export LC_ALL
 java QSortTest -s | tee qsort.dat
 gnuplot /home/TDDC70/bin/qsort.gnupl
 rm qsort.dat
-ghostview qsort.ps
+ps2pdfwr qsort.ps
+rm qsort.ps
+acroread qsort.pdf
