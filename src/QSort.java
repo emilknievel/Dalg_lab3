@@ -29,19 +29,23 @@ public class QSort {
     /**
      * Partition the array.
      */
-    private static int partition(int[] a, int low, int high, int pivot) {
-
-	int pivotValue = a[pivot];
-	arraySwap(a, pivot, high); // move pivot to end
-	int storeIndex = low;
-	for (int i = low; i < high; i++) {
-	    if (a[i] <= pivotValue) {
-		arraySwap(a, i, storeIndex);
-		storeIndex += 1;
+    private static int partition(int[] a, int low, int high, int pivotValue) {
+	int left = low;
+	int right = high - 1;
+	while (left <= right) {
+	    while (a[left] <= pivotValue) {
+		left++;
+	    }
+	    while (a[right] >= pivotValue) {
+		right--;
+	    }
+	    if (left < right) {
+		arraySwap(a, left, right);
 	    }
 	}
-	arraySwap(a, storeIndex, high); // pivot to final place
-	return storeIndex;
+	arraySwap(a, left, high);
+
+	return left;
     }
 
     /**
@@ -51,24 +55,15 @@ public class QSort {
 	int center = low + (high - low) / 2;
 
 	if (a[low] > a[center])
-	    swap(low, center);
+	    arraySwap(a, low, center);
 	// order low & high
 	if (a[low] > a[high])
-	    swap(low, high);
+	    arraySwap(a, low, high);
 	// order center & high
-	if (a[center] > a[high])
-	    swap(center, high);
+	if (a[center] < a[high])
+	    arraySwap(a, center, high);
 
-	return center;
-    }
-
-    /**
-     * Swap two integers.
-     */
-    private static void swap(int a, int b) {
-	int tmp = a;
-	a = b;
-	b = tmp;
+	return a[high]; // Returns center value that has been put at the end of the array
     }
 
     /**
